@@ -1,0 +1,101 @@
+/* IMPORTAR COMPONENTES */
+@import url('header.css');
+@import url('sections.css');
+
+/* ATUALIZAÇÃO DAS VARIÁVEIS (assets/css/style.css) */
+:root {
+    /* NOVA PALETA BASEADA NO LOGOTIPO */
+    --primary: #F4A261;       /* Laranja principal (fundo) */
+    --primary-dark: #D97706;  /* Laranja mais escuro */
+    --secondary: #FFFFFF;     /* Branco para texto */
+    --accent: #000000;        /* Preto para destaques (checkmark e box) */
+    --accent-hover: #006400;  /* Preto mais escuro no hover */
+    --light: #FFF5E1;         /* Fundo claro derivado do laranja */
+    --dark: #1F2937;          /* Texto escuro (neutro) */
+    --gray: #6B7280;          /* Cinza para textos secundários */
+    --primary-button: green;
+    --primary-button-hover: #006400;
+    --button-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    
+    /* Tipografia */
+    --font-main: 'Poppins', sans-serif;
+    
+    /* Espaçamentos */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    
+    /* Bordas */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    
+    /* Sombras */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* RESET E ESTILOS BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: var(--light);
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Classe base para todos os botões CTA */
+.cta-button {
+  display: inline-block;
+  background-color: var(--primary-button);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: var(--button-shadow);
+  border: none;
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.cta-button:hover {
+  background-color: var(--primary-button-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Container para centralizar botões */
+.button-container {
+  text-align: center;
+  width: 100%;
+  margin: 1.5rem 0;
+}
