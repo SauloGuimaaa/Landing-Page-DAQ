@@ -461,7 +461,7 @@
   display: flex;
   transition: transform 0.5s ease;
   width: 100%;
-  min-height: 450px; /* Altura mínima para evitar saltos */
+  align-items: stretch;
 }
 
 .depoimento-card {
@@ -471,6 +471,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
+  height: auto;
 }
 
 .depoimento-content {
@@ -484,6 +485,7 @@
   align-items: center;
   text-align: center;
   transition: transform 0.3s ease;
+  width: 100%; /* Garante largura total */
 }
 
 .depoimento-card:hover .depoimento-content {
@@ -627,19 +629,20 @@
 }
 
 /* Responsividade Atualizada */
-/* Desktop - 3 cards visíveis */
 @media (min-width: 992px) {
   .depoimento-card {
     flex: 0 0 calc(100% / 3);
     max-width: calc(100% / 3);
+    margin-top: 0 10px;
   }
 }
 
 /* Tablet - 2 cards visíveis */
 @media (min-width: 768px) and (max-width: 991px) {
   .depoimento-card {
-    flex: 0 0 50%;
-    max-width: 50%;
+    flex: 0 0 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+    margin: 0 10px;
   }
 }
 
@@ -650,9 +653,9 @@
   }
   
   .depoimento-card {
-    flex: 0 0 85%;
-    max-width: 85%;
-    margin: 0 auto;
+    flex: 0 0 calc(85% - 20px);
+    max-width: calc(85% - 20px);
+    margin: 0 10px;
   }
   
   .carrossel-btn {
