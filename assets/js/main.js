@@ -1,24 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Seleção dos elementos do carrossel
   const carrossel = document.querySelector('.depoimentos-carrossel');
   const cards = document.querySelectorAll('.depoimento-card');
   const prevBtn = document.querySelector('.carrossel-btn.prev');
   const nextBtn = document.querySelector('.carrossel-btn.next');
   const dotsContainer = document.querySelector('.carrossel-dots');
 
-  // Se não encontrar os elementos necessários, interrompe a execução
   if (!carrossel || !cards.length) return;
 
-  // Variáveis de controle
   let currentIndex = 0;
+  let cardWidth = cards[0].offsetWidth + 30; // Largura do card + margem
   let visibleCards = 3;
-  let cardWidth = 0;
-  let carrosselWidth = 0;
   let autoScrollInterval;
 
-  // Atualiza a quantidade de cards visíveis e suas dimensões
+  // Função para centralizar os cards verticalmente
+  function alignCards() {
+    cards.forEach(card => {
+      const content = card.querySelector('.depoimento-content');
+      if (content) {
+        content.style.marginTop = '0';
+        content.style.marginBottom = '0';
+      }
+    });
+  }
+
   function updateVisibleCards() {
-    // Define quantos cards são visíveis baseado no tamanho da tela
     if (window.innerWidth >= 992) {
       visibleCards = 3;
     } else if (window.innerWidth >= 768) {
@@ -26,29 +31,20 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       visibleCards = 1;
     }
-    
-    // Calcula a largura do container do carrossel
-    carrosselWidth = carrossel.offsetWidth;
-    // Calcula a largura efetiva de cada card (incluindo margens)
-    cardWidth = carrosselWidth / visibleCards;
-    
-    // Ajusta a largura dos cards para preencher o espaço corretamente
-    cards.forEach(card => {
-      card.style.width = `${cardWidth - 30}px`; // Subtrai o padding
-      card.style.margin = '0 15px'; // Margem uniforme
-      card.style.flexShrink = '0'; // Evita que os cards encolham
-    });
+    cardWidth = cards[0].offsetWidth + 30;
+    alignCards(); // Alinha os cards após mudança de tamanho
   }
 
-  // Atualiza a posição do carrossel
   function updateCarrossel() {
-    const translateValue = -currentIndex * carrosselWidth;
+    const translateValue = -currentIndex * (cardWidth * visibleCards);
     carrossel.style.transform = `translateX(${translateValue}px)`;
     updateDots();
     updateButtons();
+    
+    // Força realinhamento após a animação
+    setTimeout(alignCards, 500);
   }
 
-  // Cria os indicadores (dots) de navegação
   function createDots() {
     dotsContainer.innerHTML = '';
     const totalCards = cards.length;
@@ -69,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Atualiza o estado dos dots
   function updateDots() {
     const dots = document.querySelectorAll('.carrossel-dot');
     dots.forEach((dot, i) => {
@@ -77,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Atualiza o estado dos botões de navegação
   function updateButtons() {
     const totalCards = cards.length;
     const maxIndex = Math.ceil(totalCards / visibleCards) - 1;
@@ -86,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
     nextBtn.disabled = currentIndex >= maxIndex;
   }
 
-  // Inicia o scroll automático
   function startAutoScroll() {
     autoScrollInterval = setInterval(() => {
       const totalCards = cards.length;
@@ -102,12 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
   }
 
-  // Para o scroll automático
   function stopAutoScroll() {
     clearInterval(autoScrollInterval);
   }
 
-  // Event listeners para os botões de navegação
+  // Event listeners
   prevBtn.addEventListener('click', () => {
     if (currentIndex > 0) {
       currentIndex--;
@@ -127,14 +119,25 @@ document.addEventListener('DOMContentLoaded', function() {
     stopAutoScroll();
   });
 
-  // Atualiza o carrossel quando a janela é redimensionada
   window.addEventListener('resize', () => {
     updateVisibleCards();
+    cardWidth = cards[0].offsetWidth + 30;
     updateCarrossel();
     createDots();
   });
 
-  // Configuração do FAQ Accordion
+  // Inicialização
+  updateVisibleCards();
+  createDots();
+  updateButtons();
+  alignCards(); // Alinha os cards inicialmente
+  startAutoScroll();
+
+  // Pausa o auto-scroll quando o mouse está sobre o carrossel
+  carrossel.addEventListener('mouseenter', stopAutoScroll);
+  carrossel.addEventListener('mouseleave', startAutoScroll);
+
+  // Configuração do FAQ Accordion (mantido original)
   const faqQuestions = document.querySelectorAll('.faq-question');
   
   faqQuestions.forEach(question => {
@@ -146,10 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (q !== question) {
           q.setAttribute('aria-expanded', 'false');
           const answer = document.getElementById(q.getAttribute('aria-controls'));
-          if (answer) {
-            answer.style.maxHeight = '0';
-            answer.style.padding = '0 25px';
-          }
+          answer.style.maxHeight = '0';
+          answer.style.padding = '0 25px';
         }
       });
       
@@ -157,25 +158,13 @@ document.addEventListener('DOMContentLoaded', function() {
       question.setAttribute('aria-expanded', !isExpanded);
       const answer = document.getElementById(question.getAttribute('aria-controls'));
       
-      if (answer) {
-        if (!isExpanded) {
-          answer.style.maxHeight = answer.scrollHeight + 'px';
-          answer.style.padding = '0 25px 25px';
-        } else {
-          answer.style.maxHeight = '0';
-          answer.style.padding = '0 25px';
-        }
+      if (!isExpanded) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        answer.style.padding = '0 25px 25px';
+      } else {
+        answer.style.maxHeight = '0';
+        answer.style.padding = '0 25px';
       }
     });
   });
-
-  // Inicialização
-  updateVisibleCards();
-  createDots();
-  updateButtons();
-  startAutoScroll();
-
-  // Pausa o auto-scroll quando o mouse está sobre o carrossel
-  carrossel.addEventListener('mouseenter', stopAutoScroll);
-  carrossel.addEventListener('mouseleave', startAutoScroll);
 });
