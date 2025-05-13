@@ -15,6 +15,7 @@
 }
 
 .hero-content {
+    order: 1;
     flex: 1;
     order: 2;
 }
@@ -61,10 +62,11 @@
 }
 
 .hero-image {
-    flex: 0 0 600px;
+    order: 2;
+    flex: 0 0 auto;
     height: 100%;
-    order: 1;
     text-align: center;
+    margin-top: var(--space-md);
 }
 
 .hero-image img {
@@ -108,10 +110,13 @@
     
     .hero-content {
         order: 1;
+        text-align: left;
     }
     
     .hero-image {
         order: 2;
+        flex: 0 0 600px;
+        margin-top: 0;
     }
     
     .hero-title {
