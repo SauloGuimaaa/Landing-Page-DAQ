@@ -651,19 +651,26 @@
 @media (max-width: 767px) {
   .depoimentos-container {
     padding: 0 30px;
+    padding-left: 5%;
   }
   
   .depoimento-card {
-    flex: 0 0 calc(85% - 20px);
-    max-width: calc(85% - 20px);
-    margin: 0 10px;
+    flex: 0 0 90% !important; /* Força 90% de largura */
+    max-width: 90% !important;
+    margin: 0 5%; /* Centraliza o card */
+    padding: 0 10px; /* Padding interno reduzido */
   }
   
   .carrossel-btn {
-    width: 40px;
-    height: 40px;
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 16px !important;
   }
   
+  .depoimento-content {
+    padding: 15px; /* Padding reduzido para mobile */
+  }
+
   .depoimento-quote {
     height: 200px;
   }
