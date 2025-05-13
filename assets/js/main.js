@@ -4,21 +4,22 @@ document.addEventListener('DOMContentLoaded', function() {
   const prevBtn = document.querySelector('.carrossel-btn.prev');
   const nextBtn = document.querySelector('.carrossel-btn.next');
   const dotsContainer = document.querySelector('.carrossel-dots');
+  const container = document.querySelector('.depoimentos-container');
 
   if (!carrossel || !cards.length) return;
 
   let currentIndex = 0;
-  let cardWidth = cards[0].offsetWidth + 30; // Largura do card + margem
   let visibleCards = 3;
   let autoScrollInterval;
+  let isAnimating = false;
 
-  // Função para centralizar os cards verticalmente
-  function alignCards() {
+  // Função para forçar o alinhamento dos cards
+  function forceAlignment() {
     cards.forEach(card => {
+      card.style.transform = 'none'; // Remove qualquer transformação residual
       const content = card.querySelector('.depoimento-content');
       if (content) {
-        content.style.marginTop = '0';
-        content.style.marginBottom = '0';
+        content.style.margin = '0 auto'; // Centraliza horizontalmente
       }
     });
   }
@@ -31,30 +32,38 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       visibleCards = 1;
     }
-    cardWidth = cards[0].offsetWidth + 30;
-    alignCards(); // Alinha os cards após mudança de tamanho
+    forceAlignment();
   }
 
   function updateCarrossel() {
-    const translateValue = -currentIndex * (cardWidth * visibleCards);
-    carrossel.style.transform = `translateX(${translateValue}px)`;
+    if (isAnimating) return;
+    isAnimating = true;
+
+    const cardWidth = container.offsetWidth / visibleCards;
+    const newPosition = -currentIndex * cardWidth * visibleCards;
+    
+    carrossel.style.transition = 'transform 0.5s ease';
+    carrossel.style.transform = `translateX(${newPosition}px)`;
+    
+    // Garante que o alinhamento seja aplicado após a animação
+    setTimeout(() => {
+      forceAlignment();
+      isAnimating = false;
+    }, 500);
+    
     updateDots();
     updateButtons();
-    
-    // Força realinhamento após a animação
-    setTimeout(alignCards, 500);
   }
 
   function createDots() {
     dotsContainer.innerHTML = '';
-    const totalCards = cards.length;
-    const dotCount = Math.ceil(totalCards / visibleCards);
+    const totalDots = Math.ceil(cards.length / visibleCards);
     
-    for (let i = 0; i < dotCount; i++) {
+    for (let i = 0; i < totalDots; i++) {
       const dot = document.createElement('button');
       dot.classList.add('carrossel-dot');
-      dot.setAttribute('aria-label', `Ir para depoimento ${i+1}`);
-      if (i === 0) dot.classList.add('active');
+      dot.setAttribute('aria-label', `Ir para slide ${i+1}`);
+      if (i === currentIndex) dot.classList.add('active');
       
       dot.addEventListener('click', () => {
         currentIndex = i;
@@ -67,30 +76,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function updateDots() {
     const dots = document.querySelectorAll('.carrossel-dot');
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === currentIndex);
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentIndex);
     });
   }
 
   function updateButtons() {
-    const totalCards = cards.length;
-    const maxIndex = Math.ceil(totalCards / visibleCards) - 1;
-    
+    const totalSlides = Math.ceil(cards.length / visibleCards);
     prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex >= maxIndex;
+    nextBtn.disabled = currentIndex >= totalSlides - 1;
   }
 
   function startAutoScroll() {
     autoScrollInterval = setInterval(() => {
-      const totalCards = cards.length;
-      const maxIndex = Math.ceil(totalCards / visibleCards) - 1;
-      
-      if (currentIndex < maxIndex) {
-        currentIndex++;
-      } else {
-        currentIndex = 0;
-      }
-      
+      const totalSlides = Math.ceil(cards.length / visibleCards);
+      currentIndex = (currentIndex + 1) % totalSlides;
       updateCarrossel();
     }, 5000);
   }
@@ -109,10 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   nextBtn.addEventListener('click', () => {
-    const totalCards = cards.length;
-    const maxIndex = Math.ceil(totalCards / visibleCards) - 1;
-    
-    if (currentIndex < maxIndex) {
+    const totalSlides = Math.ceil(cards.length / visibleCards);
+    if (currentIndex < totalSlides - 1) {
       currentIndex++;
       updateCarrossel();
     }
@@ -121,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.addEventListener('resize', () => {
     updateVisibleCards();
-    cardWidth = cards[0].offsetWidth + 30;
     updateCarrossel();
     createDots();
   });
@@ -130,10 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
   updateVisibleCards();
   createDots();
   updateButtons();
-  alignCards(); // Alinha os cards inicialmente
+  forceAlignment(); // Alinhamento inicial forçado
   startAutoScroll();
 
-  // Pausa o auto-scroll quando o mouse está sobre o carrossel
+  // Pausa auto-scroll ao interagir
   carrossel.addEventListener('mouseenter', stopAutoScroll);
   carrossel.addEventListener('mouseleave', startAutoScroll);
 
@@ -144,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
     question.addEventListener('click', () => {
       const isExpanded = question.getAttribute('aria-expanded') === 'true';
       
-      // Fecha todos os outros itens
       faqQuestions.forEach(q => {
         if (q !== question) {
           q.setAttribute('aria-expanded', 'false');
@@ -154,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
       
-      // Alterna o item atual
       question.setAttribute('aria-expanded', !isExpanded);
       const answer = document.getElementById(question.getAttribute('aria-controls'));
       
