@@ -114,9 +114,7 @@
     }
     
     .hero-image {
-        order: 2;
-        flex: 0 0 600px;
-        margin-top: 0;
+        display: none;
     }
     
     .hero-title {

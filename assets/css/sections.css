@@ -683,14 +683,28 @@
     padding: 60px 0;
   }
   
+  .depoimentos-carrossel {
+    justify-content: center; /* Centraliza os cards */
+  }
+
   .depoimento-card {
-    padding: 0 10px;
-    flex: 0 0 100%;
-    max-width: 100%;
+    padding: 0 5px;
+    flex: 0 0 90%;
+    max-width: 90%;
   }
   
+  .depoimento-content {
+    align-items: center; /* Garante alinhamento central */
+    padding: 15px; /* Padding interno reduzido */
+  }
+
   .depoimento-quote {
-    height: 250px; /* Altura menor para mobile */
+    height: 200px; /* Altura menor para mobile */
+    margin-bottom: 15px;
+  }
+
+  .depoimento-quote img {
+    max-height: 200px; /* Ajusta a altura da imagem */
   }
 
   .depoimentos-container {
@@ -698,9 +712,17 @@
   }
   
   .carrossel-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .carrossel-btn.prev {
+    left: 5px;
+  }
+  
+  .carrossel-btn.next {
+    right: 5px;
   }
 }
 
