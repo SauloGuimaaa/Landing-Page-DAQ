@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/formulario.css">
+
     <!-- Fontes do Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +24,7 @@
                 <h1 class="hero-title">Destruindo as Questões: Passe no Concurso dos Seus Sonhos com o Método SPQ!</h1>
                 <p class="hero-subtitle">A mentoria que ensina concurseiros a estudar por questões de forma estratégica e direcionada.</p>
                 <div class="hero-cta">
-                    <a href="#oferta" class="cta-button">Quero Entrar na Mentoria DAQ!</a>
+                    <a href="#oferta" class="cta-button" onclick="mostrarFormulario()">Quero Entrar na Mentoria DAQ!</a>
                 </div>
             </div>
             <div class="hero-image">
@@ -81,7 +83,7 @@
                                     <span>Transforma a dificuldade em <strong>aprendizado efetivo</strong></span>
                                 </li>
                             </ul>
-                            <a href="#oferta" class="cta-button cta-secondary">Quero resolver esses problemas!</a>
+                            <a href="#oferta" class="cta-button cta-secondary" onclick="mostrarFormulario()">Quero resolver esses problemas!</a>
                         </div>
                     </div>
                 </div>
@@ -134,7 +136,7 @@
             </div>
 
             <div class="benefits-cta">
-                <a href="#oferta" class="cta-button cta-benefits">Quero esses benefícios agora!</a>
+                <a href="#oferta" class="cta-button cta-benefits" onclick="mostrarFormulario()">Quero esses benefícios agora!</a>
             </div>
         </div>
     </section>
@@ -295,7 +297,7 @@
 
     <div class="depoimentos-cta">
       <p class="cta-text">Você também pode transformar sua preparação com o Método SPQ</p>
-      <a href="#oferta" class="cta-button">Quero me inscrever agora</a>
+      <a href="#oferta" class="cta-button" onclick="mostrarFormulario()">Quero me inscrever agora</a>
     </div>
   </div>
 </section>
@@ -392,7 +394,7 @@
                     <div class="preco-atual">Por apenas 12x de <span>R$ 101,13</span></div>
                     <div class="preco-avista">ou R$ 997 à vista</div>
                     
-                    <a href="#checkout" class="cta-button">QUERO COMEÇAR AGORA!</a>
+                    <a href="#checkout" class="cta-button" onclick="mostrarFormulario()">QUERO COMEÇAR AGORA!</a>
                     
                     <div class="garantia-box">
                         <p>7 dias de garantia incondicional<br>Se não gostar, devolvemos seu dinheiro!</p>
@@ -532,6 +534,36 @@
     </div>
   </div>
 </footer>
+
+  <!-- Modal do Formulário -->
+<div id="formulario-lead" class="modal-form">
+  <div class="modal-content">
+    <span class="close-btn" onclick="fecharFormulario()">&times;</span>
+    <h3>Quero aplicar o método DAQ</h3>
+    <p class="form-subtitle">Preencha para receber todas as informações</p>
+    
+    <form id="formNI" onsubmit="event.preventDefault(); enviarFormulario()">
+      <div class="form-group">
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+      </div>
+      
+      <div class="form-group">
+        <label for="whatsapp">WhatsApp:</label>
+        <input type="tel" id="whatsapp" name="whatsapp" required 
+               placeholder="(00) 00000-0000"
+               pattern="^\(\d{2}\) \d{5}-\d{4}$"
+               oninput="formatarTelefone(this)">
+      </div>
+      
+      <button type="submit" class="submit-btn">
+        <i class="fas fa-paper-plane"></i> Quero me inscrever
+      </button>
+      
+      <p class="form-footer">Ao informar meus dados, concordo com a <a href="/politica-de-privacidade" target="_blank">Política de Privacidade</a>.</p>
+    </form>
+  </div>
+</div>
 
     <script src="assets/js/main.js" defer></script>
 </body>
