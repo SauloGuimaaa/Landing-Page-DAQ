@@ -411,6 +411,7 @@
 }
 
 /* Seção Depoimentos */
+/* Seção Depoimentos - Versão Atualizada */
 .depoimentos {
   padding: 80px 0;
   background-color: #f9f9f9;
@@ -455,64 +456,34 @@
   padding: 0 60px;
 }
 
-.depoimento-img-container {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  border-radius: 8px 8px 0 0;
-  margin-bottom: 15px;
-}
-
-.depoimento-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.depoimento-card:hover .depoimento-img {
-  transform: scale(1.05);
-}
-
-.depoimento-text-container {
-  padding: 0 15px 15px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-
+/* Carrossel Atualizado */
 .depoimentos-carrossel {
   display: flex;
   transition: transform 0.5s ease;
   width: 100%;
-  min-height: 500px; /* Altura mínima para evitar saltos */
-  will-change: transform; /* Melhora performance */
+  min-height: 450px; /* Altura mínima para evitar saltos */
 }
 
 .depoimento-card {
-  flex: 0 0 calc(100% / 3);
+  flex: 0 0 100%;
   padding: 0 15px;
   box-sizing: border-box;
   min-width: 0;
-  max-width: calc(100% / 3);
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease;
-  min-height: 450px; /* Altura mínima ajustada */
 }
 
 .depoimento-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
   height: 100%;
   background: white;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
 .depoimento-card:hover .depoimento-content {
@@ -521,27 +492,27 @@
 }
 
 .depoimento-quote {
+  width: 100%;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  width: 100%;
-  height: 300px; /* Altura fixa para a imagem do depoimento */
-  object-fit: cover;
-  border-radius: 8px;
   margin-bottom: 20px;
-  background-color: transparent !important; /* Remove o fundo de debug */
+  overflow: hidden;
+  background-color: transparent;
 }
 
 .depoimento-quote img {
-  width: auto;
+  max-height: 100%;
   max-width: 100%;
-  height: auto;
-  max-height: 300px;
-  object-fit: contain; /* Mantém a proporção sem cortar */
-  border-radius: 8px;
+  object-fit: contain;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
 }
 
+.depoimento-card:hover .depoimento-quote img {
+  transform: scale(1.03);
+}
 
 .depoimento-text {
   font-size: 1rem;
@@ -558,6 +529,7 @@
   margin-top: auto;
   padding-top: 15px;
   border-top: 1px solid #eee;
+  justify-content: center;
 }
 
 .author-photo {
@@ -567,7 +539,6 @@
   overflow: hidden;
   flex-shrink: 0;
   border: 3px solid #F4A261;
-  background-color: #fdd; /* Debug: fundo vermelho claro se a imagem não carregar */
 }
 
 .author-photo img {
@@ -579,6 +550,7 @@
 .author-info {
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
 
 .author-info h4 {
@@ -654,6 +626,46 @@
   transform: scale(1.2);
 }
 
+/* Responsividade Atualizada */
+/* Desktop - 3 cards visíveis */
+@media (min-width: 992px) {
+  .depoimento-card {
+    flex: 0 0 calc(100% / 3);
+    max-width: calc(100% / 3);
+  }
+}
+
+/* Tablet - 2 cards visíveis */
+@media (min-width: 768px) and (max-width: 991px) {
+  .depoimento-card {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* Mobile - 1 card centralizado */
+@media (max-width: 767px) {
+  .depoimentos-container {
+    padding: 0 30px;
+  }
+  
+  .depoimento-card {
+    flex: 0 0 85%;
+    max-width: 85%;
+    margin: 0 auto;
+  }
+  
+  .carrossel-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .depoimento-quote {
+    height: 200px;
+  }
+}
+
+/* CTA */
 .depoimentos-cta {
   text-align: center;
   margin-top: 50px;
@@ -665,67 +677,6 @@
   margin-bottom: 25px;
   font-weight: 500;
 }
-
-/* Responsividade */
-@media (max-width: 992px) {
-  .depoimento-card {
-    flex: 0 0 50%;
-    max-width: 50%;
-  }
-  
-  .depoimentos-container {
-    padding: 0 50px;
-  }
-}
-
-@media (max-width: 768px) {
-  .depoimentos {
-    padding: 60px 0;
-  }
-  
-  .depoimentos-carrossel {
-    justify-content: center; /* Centraliza os cards */
-  }
-
-  .depoimento-card {
-    padding: 0 5px;
-    flex: 0 0 90%;
-    max-width: 90%;
-  }
-  
-  .depoimento-content {
-    align-items: center; /* Garante alinhamento central */
-    padding: 15px; /* Padding interno reduzido */
-  }
-
-  .depoimento-quote {
-    height: 200px; /* Altura menor para mobile */
-    margin-bottom: 15px;
-  }
-
-  .depoimento-quote img {
-    max-height: 200px; /* Ajusta a altura da imagem */
-  }
-
-  .depoimentos-container {
-    padding: 0 30px;
-  }
-  
-  .carrossel-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 16px;
-  }
-
-  .carrossel-btn.prev {
-    left: 5px;
-  }
-  
-  .carrossel-btn.next {
-    right: 5px;
-  }
-}
-
 /* Seção Como Funciona */
 .metodo-spq {
   padding: 80px 0;

@@ -2,9 +2,9 @@
 .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
-    padding: var(--space-xl) 0 0; /* Mantém padding apenas no topo */
+    padding: var(--space-xl) 0 0;
     position: relative;
-    overflow: hidden; /* Adicionado para conter a imagem */
+    overflow: hidden;
 }
 
 .hero-container {
@@ -15,9 +15,9 @@
 }
 
 .hero-content {
-    order: 1;
     flex: 1;
-    order: 2;
+    order: 1;
+    text-align: center;
 }
 
 .hero-title {
@@ -33,12 +33,14 @@
     margin-bottom: var(--space-lg);
     opacity: 0.9;
     max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hero-cta {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza todos os itens filhos */
+    align-items: center;
     width: 100%;
 }
 
@@ -53,6 +55,7 @@
     transition: all 0.3s ease;
     box-shadow: var(--shadow-md);
     width: 100%;
+    max-width: 300px;
 }
 
 .hero-cta .cta-button:hover {
@@ -64,7 +67,6 @@
 .hero-image {
     order: 2;
     flex: 0 0 auto;
-    height: 100%;
     text-align: center;
     margin-top: var(--space-md);
 }
@@ -72,7 +74,7 @@
 .hero-image img {
     width: 90%;
     max-width: 550px;
-    border: none; 
+    border: none;
     transition: transform 0.3s ease;
     background: transparent;
     object-fit: contain;
@@ -95,8 +97,8 @@
 }
 
 .hero-wave svg path {
-    fill: var(--light); /* Muda a cor da onda para bege */
-    opacity: 1; /* Remove transparência se existir */
+    fill: var(--light);
+    opacity: 1;
 }
 
 /* RESPONSIVIDADE - TABLET/DESKTOP */
@@ -114,11 +116,30 @@
     }
     
     .hero-image {
-        display: none;
+        order: 2;
+        flex: 0 0 50%;
+        margin-top: 0;
+        display: block;
     }
     
     .hero-title {
         font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .hero-cta {
+        align-items: flex-start;
+    }
+}
+
+/* OCULTAR IMAGEM APENAS NO MOBILE */
+@media (max-width: 767px) {
+    .hero-image {
+        display: none;
     }
 }
 
