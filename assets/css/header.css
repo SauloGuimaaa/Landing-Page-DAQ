@@ -5,26 +5,34 @@
     padding: var(--space-xl) 0 0;
     position: relative;
     overflow: hidden;
+    min-height: 475px;
 }
 
 .hero-container {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
-    padding-bottom: var(--space-xl);
+    gap: var(--space-md);
+    padding-bottom: 120px;
+    position: relative;
+    height: 100%;
 }
 
 .hero-content {
     flex: 1;
     order: 1;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
+    margin-right: auto;
+    padding-top: var(--space-xl);
 }
 
 .hero-title {
     font-size: 1.8rem;
     font-weight: 700;
-    line-height: 1.3;
-    margin-bottom: var(--space-md);
+    line-height: 1.2;
+    margin-bottom: var(--space-sm);
+    word-break: normal;
+    white-space: normal;
 }
 
 .hero-subtitle {
@@ -39,9 +47,10 @@
 
 .hero-cta {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+    justify-content: flex-start;
+    width: auto;
+    margin-top: var(--space-md);
+
 }
 
 .hero-cta .cta-button {
@@ -54,8 +63,9 @@
     text-align: center;
     transition: all 0.3s ease;
     box-shadow: var(--shadow-md);
-    width: 100%;
-    max-width: 300px;
+    width: auto;
+    max-width: none;
+    margin-left: 0;
 }
 
 .hero-cta .cta-button:hover {
@@ -66,15 +76,19 @@
 
 .hero-image {
     order: 2;
-    flex: 0 0 auto;
-    text-align: center;
-    margin-top: var(--space-md);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 45%;
+    max-width: 500px;
+    z-index: 1;
 }
 
 .hero-image img {
-    width: 90%;
+    width: 100%;
     max-width: 550px;
     border: none;
+    height: auto;
     transition: transform 0.3s ease;
     background: transparent;
     object-fit: contain;
@@ -87,6 +101,7 @@
     width: 100%;
     overflow: hidden;
     line-height: 0;
+    z-index: 0;
 }
 
 .hero-wave svg {
@@ -105,7 +120,7 @@
 @media (min-width: 768px) {
     .hero-container {
         flex-direction: row;
-        align-items: center;
+        align-items: flex-start;
         gap: var(--space-xl);
         padding-bottom: var(--space-xl);
     }
@@ -118,8 +133,10 @@
     .hero-image {
         order: 2;
         flex: 0 0 50%;
-        margin-top: 0;
+        margin-top: auto;
         display: block;
+        align-self: flex-end; /* Alinha a imagem na parte inferior */
+        padding-top: var(--space-xl); /* Adiciona espaço acima da imagem */
     }
     
     .hero-title {
